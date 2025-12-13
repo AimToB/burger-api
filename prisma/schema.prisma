@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum MenuCategory {
+  BURGER
+  SIDE
+  DRINK
+}
+
+model MenuItem {
+  id          String       @id @default(uuid())
+  name        String
+  description String
+  price       Float
+  category    MenuCategory
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+}
+
+model OpeningHours {
+  id        String  @id @default(uuid())
+  day       String
+  openTime  String
+  closeTime String
+  isClosed  Boolean @default(false)
+}
+
+model ContactInfo {
+  id      String @id @default(uuid())
+  address String
+  phone   String
+  email   String
+  mapUrl  String
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+}
