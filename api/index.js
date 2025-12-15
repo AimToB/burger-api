@@ -54,8 +54,4 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/hours", hoursRoutes);
 app.use("/api/reservations", reservationRoutes);
 
-const server = app.listen(PORT, () => {
-  console.log(chalk.green(`Connected to the server on PORT: ${PORT}!`));
-});
-
 app.use(errorHandler);
