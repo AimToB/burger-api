@@ -4,6 +4,8 @@ import { siteConfig } from "@/config/siteConfig";
 import { useEffect, useState } from "react";
 import CartIcon from "../assets/cart.svg";
 import ReserveNowButton from "./ReserveButton";
+import { CartCount } from "./CartCount";
+import CartPanel from "./CartPanel";
 
 export default function Header() {
   const [cartOpen, setCartOpen] = useState(false);
@@ -18,10 +20,7 @@ export default function Header() {
         className={`cart-overlay ${cartOpen ? "open" : ""}`}
         onClick={() => setCartOpen(false)}
       >
-        <div className="cart-panel" onClick={(e) => e.stopPropagation()}>
-          <h3>Your cart</h3>
-          {/* cart items */}
-        </div>
+        <CartPanel />
       </div>
 
       <header className="header" id="nav">
@@ -38,7 +37,7 @@ export default function Header() {
             onClick={() => setCartOpen((open) => !open)}
           >
             <CartIcon className="cart-icon" />
-            <span className="cart-count">2</span>
+            <CartCount />
           </button>
         </nav>
       </header>
