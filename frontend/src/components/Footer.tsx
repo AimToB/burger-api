@@ -3,8 +3,10 @@ import { apiFetch } from "@/lib/api";
 import { OpeningHours } from "@prisma/client";
 
 export default async function Footer() {
-  const openHours = await apiFetch("hours");
-  const contactInfo = await apiFetch("contact");
+  const [openHours, contactInfo] = await Promise.all([
+    apiFetch("hours"),
+    apiFetch("contact"),
+  ]);
   return (
     <footer id="footer">
       <div className="footer-inner">

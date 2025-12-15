@@ -7,7 +7,7 @@ import {
 export async function contactInfoController(req, res, next) {
   try {
     const info = await getContactInfo();
-    res.status(200).json(info);
+    res.status(200).json(info || null);
   } catch (err) {
     next(err);
   }
@@ -25,14 +25,14 @@ export async function createMessageController(req, res, next) {
         error: "Name, email, message required!",
       });
     }
-    await createContactMessage({
+    const created = await createContactMessage({
       name: name.trim(),
       email: email.trim(),
       message: message.trim(),
     });
 
-    res.status(200).json({
-      msg: "Created Message Successfully",
+    res.status(201).json({
+      id: created.id,
     });
   } catch (err) {
     next(err);
