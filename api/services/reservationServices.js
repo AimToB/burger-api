@@ -1,14 +1,7 @@
 import { prisma } from "../config/db.js";
 
-export async function getReservations(name) {
-  if (!name) {
-    return prisma.reservation.findMany();
-  }
-  return prisma.reservation.findMany({
-    where: {
-      name: name,
-    },
-  });
+export async function getReservations() {
+  return prisma.reservation.findMany();
 }
 
 export async function createReservation({

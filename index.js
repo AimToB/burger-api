@@ -20,7 +20,6 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(errorHandler);
 
 const PORT = process.env.PORT || 5001;
 
@@ -58,3 +57,5 @@ app.use("/api/reservations", reservationRoutes);
 const server = app.listen(PORT, () => {
   console.log(chalk.green(`Connected to the server on PORT: ${PORT}!`));
 });
+
+app.use(errorHandler);

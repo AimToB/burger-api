@@ -372,7 +372,7 @@ main {
 }
 
 .reserve-btn.primary:hover {
-  background: var(--accent-hover, #f0b429);
+  background: var(--accent-hover, #221801);
   transform: translateY(-1px);
 }
 
@@ -478,4 +478,18 @@ footer a:hover {
   text-align: center;
   font-size: 0.85rem;
   color: var(--muted);
+}
+
+.form-message {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.form-message.success {
+  color: #2e7d32;
+}
+
+.form-message.error {
+  color: #c62828;
 }

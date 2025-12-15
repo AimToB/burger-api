@@ -5,8 +5,7 @@ import {
 
 export async function getReservationsController(req, res, next) {
   try {
-    const { name } = req.body;
-    const reservations = await getReservations(name);
+    const reservations = await getReservations();
 
     res.status(200).json(reservations);
   } catch (err) {
@@ -21,27 +20,24 @@ export async function createReservationController(req, res, next) {
     const { name, email, date, time, guests, note } = req.body;
 
     if (!name || !email || !date || !time || typeof guests !== "number") {
-      return res.status(400).json({ msg: "Invalid or missing data" });
+      return res.status(400).json({ error: "Invalid or missing data" });
     }
 
     const isoTime = new Date(`${date}T${time}`);
 
     if (isNaN(isoTime.getTime())) {
-      return res.status(400).json({ msg: "Invalid date or time format" });
+      return res.status(400).json({ error: "Invalid date or time format" });
     }
 
-    await createReservation({
+    const created = await createReservation({
       name,
       email,
       time: isoTime.toISOString(),
       guests,
       note,
     });
-    res.status(200).json({
-      msg: "Reservation created successfully",
-    });
+    res.status(201).json(created.id);
   } catch (err) {
-    console.log(err);
     next(err);
   }
 }

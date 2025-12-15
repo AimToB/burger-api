@@ -1,6 +1,11 @@
 export function errorHandler(err, req, res, next) {
   console.error(err);
-  return res.status(500).json({
+
+  if (res.headersSent) {
+    return next(err);
+  }
+
+  res.status(500).json({
     error: "Internal server error",
   });
 }
