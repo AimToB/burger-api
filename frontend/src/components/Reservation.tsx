@@ -1,5 +1,6 @@
 "use client";
 
+import { apiFetch } from "@/lib/api";
 import { useState } from "react";
 
 export default function ReservationForm() {
@@ -20,21 +21,35 @@ export default function ReservationForm() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // later: send to API
-    console.log("Reservation:", form);
+    const payload = {
+      name: form.name,
+      email: form.email,
+      date: form.date,
+      time: form.time,
+      guests: Number(form.guests),
+      note: form.note || null,
+    };
 
-    // optional reset
-    setForm({
-      name: "",
-      email: "",
-      date: "",
-      time: "",
-      guests: "2",
-      note: "",
-    });
+    try {
+      await apiFetch("reservations/create", {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+
+      setForm({
+        name: "",
+        email: "",
+        date: "",
+        time: "",
+        guests: "2",
+        note: "",
+      });
+    } catch (err) {
+      console.error("Failed to create reservation", err);
+    }
   };
 
   return (

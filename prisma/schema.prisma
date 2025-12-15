@@ -31,6 +31,17 @@ model OpeningHours {
   isClosed  Boolean @default(false)
 }
 
+model Reservation{
+  id String @id @default(uuid())
+  name String
+  email String
+  time DateTime
+  guests Int
+  note String?
+
+  createdAt DateTime @default(now())
+}
+
 model ContactInfo {
   id      String @id @default(uuid())
   address String
