@@ -1,0 +1,481 @@
+:root {
+  --bg: #faf7f2;
+  --text: #2b2b2b;
+  --muted: #6f6a64;
+  --accent: #f2b705;
+  --dark: #3a2f2a;
+  --header-height: 72px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 32px;
+  background: var(--bg);
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-wrap: wrap;
+    row-gap: 12px;
+  }
+
+  .header nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-size: 1.4rem;
+  }
+}
+
+main {
+  padding-top: var(--header-height);
+}
+
+.header .logo {
+  font-weight: 700;
+  font-size: 22px;
+}
+#logo-a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+}
+#logo-a:hover {
+  color: var(--accent);
+}
+
+.header nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.header nav a {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.header nav a:hover {
+  color: var(--accent);
+}
+
+.cart-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px; /* nice hit area */
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--dark); /* drives SVG via currentColor */
+}
+
+.cart-icon {
+  width: 22px;
+  height: 22px;
+  fill: currentColor; /* if your svg uses fill */
+  display: block;
+}
+
+.cart-button.active {
+  color: var(--accent);
+}
+
+.cart-count {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--dark);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+
+  transform: translate(35%, -35%); /* nudges it to sit on the corner */
+}
+
+.cart-overlay {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  justify-content: flex-end;
+
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 900; /* below header */
+}
+
+.cart-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cart-panel {
+  width: min(420px, 100%);
+  height: calc(100vh - var(--header-height));
+  background: #fff;
+  padding: 24px;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cart-overlay.open .cart-panel {
+  transform: translateX(0);
+}
+
+.hero {
+  position: relative;
+  padding: 120px 24px 100px;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+    url("/assets/img/burger-hero.jpg");
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.05);
+  animation: heroZoom 6s ease-out forwards;
+  z-index: 0;
+}
+
+@keyframes heroZoom {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 5vw, 3.5rem);
+  margin-bottom: 12px;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  max-width: 540px;
+  margin: 0 auto 32px;
+}
+
+.hero .cta {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--dark);
+  padding: 14px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.menu-preview {
+  padding: 80px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.menu-preview h2 {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.menu-preview .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+.burger-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.burger-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.burger-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.burger-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.burger-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.burger-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.burger-footer span {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.burger-card h3 {
+  margin: 0;
+}
+
+.burger-card p {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.burger-card span {
+  font-weight: 600;
+}
+
+.burger-card button {
+  margin-top: auto;
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.burger-card button:hover {
+  background: var(--accent);
+  color: var(--dark);
+}
+.reservation-section {
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.reservation-section h2 {
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  margin-bottom: 8px;
+}
+
+.reservation-section p {
+  margin-bottom: 32px;
+  color: #555;
+}
+
+.reservation-form {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reserve-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 14px 28px;
+  border-radius: 999px;
+
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+/* Primary */
+.reserve-btn.primary {
+  background: var(--accent);
+  color: var(--dark);
+  border: none;
+}
+
+.reserve-btn.primary:hover {
+  background: var(--accent-hover, #f0b429);
+  transform: translateY(-1px);
+}
+
+/* Outline */
+.reserve-btn.outline {
+  background: transparent;
+  color: var(--dark);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.reserve-btn.outline:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Accessibility */
+.reserve-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.reservation-form input,
+.reservation-form select,
+.reservation-form textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.reservation-form textarea {
+  resize: vertical;
+}
+
+.reservation-form .cta {
+  margin-top: 12px;
+  align-self: center;
+}
+
+.reservation-form button {
+  width: 100%;
+  background: var(--accent);
+  color: var(--dark);
+  border: none;
+  padding: 14px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+footer {
+  background: var(--bg);
+  padding: 64px 24px 40px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+}
+
+.footer-col h4 {
+  margin-bottom: 16px;
+  font-size: 1rem;
+}
+
+.footer-col p {
+  margin: 6px 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer li {
+  margin-bottom: 8px;
+}
+
+footer a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+footer a:hover {
+  color: var(--accent);
+}
+
+.footer-bottom {
+  margin-top: 48px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
