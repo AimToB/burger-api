@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { siteConfig } from "@/config/siteConfig";
+import { CartProvider } from "@/context/CartContext";
 
 export default function RootLayout({
   children,
@@ -14,8 +15,10 @@ export default function RootLayout({
         <title>{siteConfig.name}</title>
       </head>
       <body>
-        <Header />
-        {children}
+        <CartProvider>
+          <Header />
+          {children}
+        </CartProvider>
         <Footer />
       </body>
     </html>
