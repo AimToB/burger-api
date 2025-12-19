@@ -1,6 +1,6 @@
 import { siteConfig } from "@/config/siteConfig";
 import { apiFetch } from "@/lib/api";
-import { OpeningHours } from "@prisma/client";
+import { OpeningHours } from "../types/openingHours";
 
 export default async function Footer() {
   const [openHours, contactInfo] = await Promise.all([

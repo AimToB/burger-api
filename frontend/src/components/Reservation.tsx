@@ -63,10 +63,11 @@ export default function ReservationForm() {
         note: "",
       });
     } catch (err) {
-      setStatus({
-        type: "error",
-        message: err.message || "Something went wrong. Please try again.",
-      });
+      if (err instanceof Error)
+        setStatus({
+          type: "error",
+          message: err.message || "Something went wrong. Please try again.",
+        });
     }
   };
 

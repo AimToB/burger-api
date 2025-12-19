@@ -2,7 +2,8 @@
 
 import { siteConfig } from "@/config/siteConfig";
 import { useEffect, useState } from "react";
-import CartIcon from "../assets/cart.svg";
+import Image from "next/image";
+import cartIcon from "../assets/cart.svg";
 import ReserveNowButton from "./ReserveButton";
 import { CartCount } from "./CartCount";
 import CartPanel from "./CartPanel";
@@ -36,7 +37,7 @@ export default function Header() {
             aria-label="Open cart"
             onClick={() => setCartOpen((open) => !open)}
           >
-            <CartIcon className="cart-icon" />
+            <Image src={cartIcon} alt="Cart" className="cart-icon" />
             <CartCount />
           </button>
         </nav>
