@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import { siteConfig } from "@/config/siteConfig";
 import { CartProvider } from "@/context/CartContext";
 
+export const dynamic = "force-dynamic";
+
 export default function RootLayout({
   children,
 }: {
